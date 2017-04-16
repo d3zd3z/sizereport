@@ -119,62 +119,6 @@ func report(ent *Entity) {
 	}
 }
 
-func deltaReport(a *Entity, b *Entity) {
-	var lastFile LastState
-	aa := a.Sizes
-	bb := b.Sizes
-
-	ai := 0
-	bi := 0
-
-	anew := func() {
-		lastFile.Show(aa[ai].Info.File)
-		fmt.Printf("D %6d        %s\n", aa[ai].Size, aa[ai].Info.Symbol)
-		ai++
-	}
-
-	bnew := func() {
-		lastFile.Show(bb[bi].Info.File)
-		fmt.Printf("A %6d        %s\n", bb[bi].Size, bb[bi].Info.Symbol)
-		bi++
-	}
-
-	// TODO: We should sort by symbol for comparison, but group by
-	// file for printing.
-	for ai < len(aa) || bi < len(bb) {
-		if bi == len(bb) {
-			anew()
-			continue
-		}
-
-		if ai == len(aa) {
-			bnew()
-			continue
-		}
-
-		// Both are present, determine the ordering of the
-		// symbol.
-		if aa[ai].Info.Symbol < bb[bi].Info.Symbol {
-			anew()
-			continue
-		}
-
-		if aa[ai].Info.Symbol > bb[bi].Info.Symbol {
-			bnew()
-			continue
-		}
-
-		// Otherwise, the name is the same, print if the size
-		// changed.
-		if aa[ai].Size != bb[bi].Size {
-			lastFile.Show(bb[bi].Info.File)
-			fmt.Printf("- %6d %6d %s\n", aa[ai].Size, bb[bi].Size, bb[bi].Info.Symbol)
-		}
-		ai++
-		bi++
-	}
-}
-
 type LastState struct {
 	started bool
 	file    string
@@ -182,7 +126,7 @@ type LastState struct {
 
 func (l *LastState) Show(file string) {
 	if !l.started || file != l.file {
-		fmt.Printf("File: %q:\n", file)
+		fmt.Printf("                   %q:\n", file)
 		l.file = file
 		l.started = true
 	}

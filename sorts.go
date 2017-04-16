@@ -2,14 +2,14 @@ package main
 
 // Sort the symbols grouping the files together, and then grouping by
 // name within the files.
-type ByFileName []*Symbol
+type ByFileName []*Change
 
 func (p ByFileName) Len() int { return len(p) }
 func (p ByFileName) Less(i, j int) bool {
-	if p[i].Info.File == p[j].Info.File {
-		return p[i].Info.Symbol < p[j].Info.Symbol
+	if p[i].file == p[j].file {
+		return p[i].symbol < p[j].symbol
 	} else {
-		return p[i].Info.File < p[j].Info.File
+		return p[i].file < p[j].file
 	}
 }
 func (p ByFileName) Swap(i, j int) { p[i], p[j] = p[j], p[i] }
