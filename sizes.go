@@ -126,7 +126,7 @@ type LastState struct {
 
 func (l *LastState) Show(file string) {
 	if !l.started || file != l.file {
-		fmt.Printf("                   %q:\n", file)
+		fmt.Printf("%q:\n", file)
 		l.file = file
 		l.started = true
 	}

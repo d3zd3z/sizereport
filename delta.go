@@ -113,8 +113,8 @@ func showChanges(changes []*Change) {
 			ntext = fmt.Sprintf("%6d", ch.nsize)
 			ntotal += ch.nsize
 		}
-		fmt.Printf("%c %s %s %s\n", ch.kind, otext, ntext, ch.symbol)
+		fmt.Printf("      %c %s %s %s\n", ch.kind, otext, ntext, ch.symbol)
 	}
 
-	fmt.Printf("  %6d %6d TOTAL\n", ototal, ntotal)
+	fmt.Printf("        %6d %6d TOTAL\n", ototal, ntotal)
 }
